@@ -1,10 +1,10 @@
 package test;
 
 import dao.FuncionarioDAO;
-import java.sql.*;
+java.lang.Exception;
 
 public class TestFuncionarioLeTodos {
-    public static void main(String[] args) throws SQLException {
-        System.out.println(FuncionarioDAO));
+    public static void main(String[] args) throws Exception {
+        System.out.println(FuncionarioDAO.leTodos());
     } 
 }

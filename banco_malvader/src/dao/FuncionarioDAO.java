@@ -5,7 +5,7 @@ package dao;
 
 import model.Funcionario;
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 
 public class FuncionarioDAO {
     protected static Connection connection;
@@ -22,13 +22,24 @@ public class FuncionarioDAO {
             st = connection.prepareStatement(sql);
             rs = st.executeQuery();
 
-            while (rs.next()) 
-            {
-                Funcionario f = new Funcionario();
-                f.setInt(rs.getInt("id_funcionario"));
-                f.setInt(rs.getString("codigo_funcionario"));
-                listFuncionarios.add(f);
+            if (rs.next()) {
+                // Criar o objeto Usuario (nesse caso, como Funcionario)
+                Funcionario f = new Funcionario(
+                    rs.getInt("usuario_id_usuario"),
+                    rs.getString("nome"),
+                    rs.getString("cpf"),
+                    rs.getDate("data_nascimento").toLocalDate(),
+                    rs.getString("telefone"),
+                    rs.setEndereco(EnderecoDAO.leUm(rs.getInt("usuario_id_usuario")));
+                    rs.getString("codigo_funcionario"),
+                    rs.getString("cargo"),
+                    rs.getString("senha"),
+                    null, // Relatório ainda não disponível
+                    listFuncionarios.add(f)
+                    );
+
             }
+
             st.close();
             
     //int id, String nome, String cpf, LocalDate dataNascimento, String telefone, Endereco endereco, String codigoFuncionario, String cargo, String senha, Relatorio relatorio
@@ -40,7 +51,7 @@ public class FuncionarioDAO {
         return listFuncionarios;
     }
     
-    public void save(Funcionario funcionario) throws SQLException {
+    /*public void save(Funcionario funcionario) throws SQLException {
         // SQL para inserir na tabela 'usuario' e 'funcionario'
         String sqlUsuario = "INSERT INTO usuario (nome, cpf, data_nascimento, telefone, tipo_usuario, senha) VALUES (?, ?, ?, ?, 'FUNCIONARIO', ?)";
         String sqlFuncionario = "INSERT INTO funcionario (codigo_funcionario, cargo, id_usuario) VALUES (?, ?, ?)";
@@ -141,7 +152,7 @@ public class FuncionarioDAO {
             e.printStackTrace();
             throw e;
         }
-    }
+    }*/
     
     public void delete(int idFuncionario) throws SQLException {
         // // SQL para deletar as tabelas 'usuario' e 'funcionario'

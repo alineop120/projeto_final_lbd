@@ -5,8 +5,8 @@ import java.sql.*;
 
 public class TestConnecttionFactory {
     
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        System.out.println(ConnectionFactory.getConection());
+    public static void main(String[] args) throws ClassNotFoundException, SQLException{
+        System.out.println(ConnectionFactory.getConnection());
         /**
          * Saída do terminal:
          * com.mysql.cj.jdbc.ConnectionImpl@2e377400
