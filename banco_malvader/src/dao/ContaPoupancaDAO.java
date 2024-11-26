@@ -24,7 +24,7 @@ public class ContaPoupancaDAO extends ContaDAO {
     // Método para consultar uma conta poupança no banco
     @Override
     public ContaPoupanca findByNumero(int numeroConta) throws SQLException {
-        String sql = "SELECT numero_conta, saldo, taxa_rendimento, cliente_id FROM conta_poupanca WHERE numero_conta = ?";
+        String sql = "SELECT numero, agenda, saldo, taxa_rendimento, cliente_id FROM conta_poupanca WHERE numero_conta = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -39,14 +39,15 @@ public class ContaPoupancaDAO extends ContaDAO {
 
                 // Criar e retornar a conta poupança
                 return new ContaPoupanca(
-                    rs.getInt("numero_conta"),
+                    rs.getInt("numero"),
+                    rs.getString("agenda"),
                     rs.getDouble("saldo"),
                     cliente, // Cliente recuperado do banco de dados
-                    rs.getDouble("taxa_rendimento")
+                    rs.getDouble("taxarendimento")
                 );
             }
         }
-
+//int numero, String agenda, Double saldo, Cliente cliente, double taxaRendimento
         return null;  // Caso não encontre
     }
 

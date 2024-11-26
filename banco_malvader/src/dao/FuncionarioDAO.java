@@ -5,8 +5,40 @@ package dao;
 
 import model.Funcionario;
 import java.sql.*;
+import java.util.List;
 
 public class FuncionarioDAO {
+    protected static Connection connection;
+    protected static PreparedStatement st;
+    protected static ResultSet rs;
+    
+     public static List<Funcionario> leTodos() throws Exception
+    {
+        List<Funcionario> listFuncionarios = new ArrayList<>();
+        try 
+        {
+            String sql = "SELECT * FROM funcionario";
+            connection = ConnectionFactory.getConnection();
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+
+            while (rs.next()) 
+            {
+                Funcionario f = new Funcionario();
+                f.setInt(rs.getInt("id_funcionario"));
+                f.setInt(rs.getString("codigo_funcionario"));
+                listFuncionarios.add(f);
+            }
+            st.close();
+            
+    //int id, String nome, String cpf, LocalDate dataNascimento, String telefone, Endereco endereco, String codigoFuncionario, String cargo, String senha, Relatorio relatorio
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+        }
+        return listFuncionarios;
+    }
     
     public void save(Funcionario funcionario) throws SQLException {
         // SQL para inserir na tabela 'usuario' e 'funcionario'
@@ -45,16 +77,15 @@ public class FuncionarioDAO {
         }
     }
 
-    public Funcionario consultar(int idFuncionario) throws SQLException {
-        String sql = "SELECT f.id_funcionario, f.codigo_funcionario, f.cargo, u.id_usuario, u.nome, u.cpf, u.data_nascimento, u.telefone, u.senha " +
-                     "FROM funcionario f " +
-                     "JOIN usuario u ON f.id_usuario = u.id_usuario " +
-                     "WHERE f.id_funcionario = ?";
+    public Funcionario consultarDados(int id_Funcionario) throws SQLException {
+        String sql = "SELECT id_funcionario, codigo_funcionario, cargo, usuario_id_usuario" +
+                     "FROM funcionario " +
+                     "WHERE id_funcionario = ?";
 
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, idFuncionario);
+            stmt.setInt(1, id_Funcionario);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {

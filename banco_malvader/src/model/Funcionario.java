@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Funcionario extends Usuario {
@@ -40,7 +39,7 @@ public class Funcionario extends Usuario {
         return "Funcionario [Nome: " + getNome() + ", Cargo: " + getCargo() + ", CPF: " + getCpf() + "]";
     }   
     
-    public void abrirConta(Conta conta) { 
+    /*public void abrirConta(Conta conta) { 
         // Verifica se a conta é uma ContaCorrente
         if (conta instanceof ContaCorrente) {
             ContaCorrenteDAO contaDAO = new ContaCorrenteDAO();
@@ -88,7 +87,7 @@ public class Funcionario extends Usuario {
         } else {
             System.out.println("Tipo de conta não reconhecido.");
         }
-    }
+    }*/
 
     public Conta consultarDadosConta(int numeroConta){
         return null;

@@ -12,7 +12,8 @@ public class ConnectionFactory {
     // Configurações de conexão com o banco de dados
     private static final String URL = "jdbc:mysql://localhost:3306/db_banco_malvader"; // URL do banco de dados
     private static final String USER = "root"; // Usuário do banco de dados
-    private static final String PASSWORD = ""; // Senha do banco de dados
+    //private static final String PASSWORD = ""; // Senha do banco de dados
+    private static final String PASSWORD = "c@tolic@"; // Senha do banco de dados
 
     // Método para criar e retornar a conexão com o banco
     public static Connection getConnection() throws SQLException {
