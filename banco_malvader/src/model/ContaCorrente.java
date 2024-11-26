@@ -6,18 +6,18 @@ package model;
 import java.time.LocalDate;
 
 public class ContaCorrente extends Conta {
-    //Atributos
+    // Atributos
     private double limite;
     private LocalDate dataVencimento;
     
-    //Construtor
+    // Construtor
     public ContaCorrente(int numero, String agenda, Double saldo, Cliente cliente, double limite, LocalDate dataVencimento) {
         super(numero, agenda, saldo, cliente);
         this.limite = limite;
         this.dataVencimento = dataVencimento;
     }
     
-    // Get e Set
+    // Getters e Setters
     public double getLimite() {
         return limite;
     }
@@ -34,25 +34,37 @@ public class ContaCorrente extends Conta {
         this.dataVencimento = dataVencimento;
     }
     
-    //Metodos
+    // Métodos
     @Override
     public void depositar(double valor){
-        
-    }
-    @Override
-    public boolean sacar(double valor){
-        return false;
-    
-    }
-    @Override
-    public double consultarSaldo(){
-        return 0;
-    
-    }
-    
-    public double consultarLimite() {
-        return 0;
-        
+        if (valor > 0) {
+            this.saldo += valor;
+            System.out.println("Depósito de " + valor + " realizado. Novo saldo: " + this.saldo);
+        } else {
+            System.out.println("Valor inválido para depósito.");
+        }
     }
 
+    @Override
+    public boolean sacar(double valor){
+        // Verifica se o saque é válido
+        if (valor > 0 && valor <= saldo + limite) {
+            this.saldo -= valor;
+            System.out.println("Saque de " + valor + " realizado. Novo saldo: " + this.saldo);
+            return true;  // Saque bem-sucedido
+        } else {
+            System.out.println("Saldo insuficiente ou valor inválido.");
+            return false;  // Falha no saque
+        }
+    }
+    
+    @Override
+    public double consultarSaldo(){
+        // Retorna o saldo disponível considerando o limite
+        return this.saldo + this.limite;
+    }
+
+    public double consultarLimite() {
+        return this.limite;
+    }
 }

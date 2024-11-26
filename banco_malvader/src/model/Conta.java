@@ -7,7 +7,7 @@ public abstract class Conta {
     //Atributos
     private int numero;
     private String agenda;
-    private Double saldo;
+    protected static Double saldo;
     private Cliente cliente;
 
     // Construtor
@@ -17,6 +17,11 @@ public abstract class Conta {
         this.saldo = saldo;
         this.cliente = cliente;
     }
+    
+    // Métodos abstratos
+    public abstract void depositar(double valor);
+    public abstract boolean sacar(double valor);
+    public abstract double consultarSaldo();
     
     // Get's e Set's
     public int getNumero() {
@@ -50,10 +55,5 @@ public abstract class Conta {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    // Métodos abstratos
-    public abstract void depositar(double valor);
-    public abstract boolean sacar(double valor);
-    public abstract double consultarSaldo();
     
 }
